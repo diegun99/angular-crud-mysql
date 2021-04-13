@@ -2,7 +2,7 @@
 import express, {Application} from 'express'
 
 import indexRoutes from './routes/IndexRoutes';
-//import gamesRoutes from './routes/GamesRoutes';
+import gamesRoutes from './routes/GamesRoutes';
 
 class Server {
     public app : Application;
@@ -19,7 +19,8 @@ class Server {
     }
 
     routes() : void { // para definir las rutas http 
-        this.app.use(indexRoutes);
+        this.app.use('/',indexRoutes);
+        this.app.use('/api/games',gamesRoutes);
 
     }
 
