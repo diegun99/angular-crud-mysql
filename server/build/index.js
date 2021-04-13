@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const morgan_1 = __importDefault(require("morgan"));
+const cors_1 = __importDefault(require("cors"));
 const IndexRoutes_1 = __importDefault(require("./routes/IndexRoutes"));
 const GamesRoutes_1 = __importDefault(require("./routes/GamesRoutes"));
 class Server {
@@ -14,6 +16,10 @@ class Server {
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);
+        this.app.use(morgan_1.default('dev')); // morgan para ver las peticiones realizadas, en consola.
+        this.app.use(cors_1.default()); // angular pedira datos a nuestro servidor
+        this.app.use(express_1.default.json()); // permite poder aceptar formatos json
+        this.app.use(express_1.default.urlencoded({ extended: false })); // para enviar desde un formulario htmlñ
     }
     routes() {
         this.app.use('/', IndexRoutes_1.default);
