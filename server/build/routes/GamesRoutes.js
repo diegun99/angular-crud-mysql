@@ -12,6 +12,7 @@ class GamesRoutes {
     }
     config() {
         this.router.get('/', gamesController_1.default.index);
+        this.router.post('/', gamesController_1.default.create);
     }
 }
 const gamesRoutes = new GamesRoutes();

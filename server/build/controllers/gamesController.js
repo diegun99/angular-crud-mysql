@@ -7,7 +7,10 @@ const database_1 = __importDefault(require("../database"));
 class GamesController {
     index(req, res) {
         database_1.default.query('DESCRIBE games');
-        res.json('games');
+        res.json({ text: 'jueguitos' });
+    }
+    create(req, res) {
+        res.json({ text: 'Creando un juego' });
     }
 }
 const gamesController = new GamesController();
