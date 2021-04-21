@@ -4,13 +4,25 @@ import pool from '../database';
 
 class GamesController {
 
-   public  index(req: Request,res: Response){
+   public  list(req: Request,res: Response){
       pool.query('DESCRIBE games');
-      res.json({text : 'jueguitos'});
+      res.json({text : 'Obteniendo lista'});
+   }
+
+   public  getOne(req: Request,res: Response){
+      res.json({text : 'Obteniendo juego '+ req.params.id});
    }
 
    public create(req: Request,res : Response){
       res.json({text : 'Creando un juego'});
+   }
+
+   public update ( req :Request, res : Response){
+      res.json({text : 'actualizando un juego ' + req.params.id});
+   }
+
+   public delete(req: Request, res :Response){
+      res.json({text : 'eliminando un juego ' + req.params.id});
    }
 }
 
