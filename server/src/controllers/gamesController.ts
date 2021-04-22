@@ -26,11 +26,13 @@ class GamesController {
       res.json({message : 'Juego Guardado'});
    }
 
-   public update ( req :Request, res : Response){
-      res.json({text : 'actualizando un juego ' + req.params.id});
+   public async update ( req :Request, res : Response){//corregir
+      const {id} = req.params;
+      await pool.query("UPDATE games set ? WHEREid = ?", [req.body,id]);
+      res.json({message : "El juego fue actualizado"});
    }
 
-   public async delete(req: Request, res: Response): Promise<void> {
+   public async delete(req: Request, res: Response): Promise<void> {//corregir
       const { id } = req.params;
       await pool.query('DELETE FROM games WHERE id = ?', [id]);
       res.json({ message: "The game was deleted" });

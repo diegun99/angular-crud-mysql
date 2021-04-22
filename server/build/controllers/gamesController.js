@@ -40,7 +40,11 @@ class GamesController {
         res.json({ message: 'Juego Guardado' });
     }
     update(req, res) {
-        res.json({ text: 'actualizando un juego ' + req.params.id });
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query("UPDATE games set ? WHEREid = ?", [req.body, id]);
+            res.json({ message: "El juego fue actualizado" });
+        });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
