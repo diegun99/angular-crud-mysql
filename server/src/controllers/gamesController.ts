@@ -11,9 +11,14 @@ class GamesController {
       });
   }
 
-   public  getOne(req: Request,res: Response){
-      res.json({text : 'Obteniendo juego '+ req.params.id});
-   }
+  public async getOne(req:Request, res: Response): Promise<any>{
+   const {id} = req.params;
+ const games = await pool.query('SELECT * FROM games WHERE id=?', [id],(error, result) => {// pendientev por revisar
+
+   if (error) throw error;
+// if(result.length===0){ res.json({message:"El juego no existe"})}else{
+ //  res.json(result);}//
+});}
 
    public create(req: Request,res : Response){
       pool.query("INSERT INTO games set ?", [req.body]);
@@ -25,9 +30,11 @@ class GamesController {
       res.json({text : 'actualizando un juego ' + req.params.id});
    }
 
-   public delete(req: Request, res :Response){
-      res.json({text : 'eliminando un juego ' + req.params.id});
-   }
+   public async delete(req: Request, res: Response): Promise<void> {
+      const { id } = req.params;
+      await pool.query('DELETE FROM games WHERE id = ?', [id]);
+      res.json({ message: "The game was deleted" });
+  }
 }
 
 const gamesController = new GamesController();

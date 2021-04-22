@@ -24,7 +24,15 @@ class GamesController {
         });
     }
     getOne(req, res) {
-        res.json({ text: 'Obteniendo juego ' + req.params.id });
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const games = yield database_1.default.query('SELECT * FROM games WHERE id=?', [id], (error, result) => {
+                if (error)
+                    throw error;
+                // if(result.length===0){ res.json({message:"El juego no existe"})}else{
+                //  res.json(result);}//
+            });
+        });
     }
     create(req, res) {
         database_1.default.query("INSERT INTO games set ?", [req.body]);
@@ -35,7 +43,11 @@ class GamesController {
         res.json({ text: 'actualizando un juego ' + req.params.id });
     }
     delete(req, res) {
-        res.json({ text: 'eliminando un juego ' + req.params.id });
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('DELETE FROM games WHERE id = ?', [id]);
+            res.json({ message: "The game was deleted" });
+        });
     }
 }
 const gamesController = new GamesController();
